@@ -263,6 +263,18 @@ class RideBookingAgent(Agent):
             raise _tool_error(exc) from exc
 
     @function_tool()
+    async def get_booking_fare(self) -> dict:
+        """Get the quoted fare range for the booking from this call."""
+        if not self.state.booking_ref and not self.client.harness_mode:
+            raise ToolError("There is no booking in this call yet.")
+        try:
+            return await self.client.call(
+                "get_booking_fare", booking_ref=self.state.booking_ref
+            )
+        except Exception as exc:
+            raise _tool_error(exc) from exc
+
+    @function_tool()
     async def get_cancellation_quote(self) -> dict:
         """Get the cancellation fee to disclose before asking for cancellation consent."""
         if not self.state.booking_ref and not self.client.harness_mode:

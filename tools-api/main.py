@@ -449,6 +449,18 @@ def get_booking_status(body: RefIn) -> dict:
     }
 
 
+@app.post("/get_booking_fare")
+def get_booking_fare(body: RefIn) -> dict:
+    b = one("SELECT * FROM bookings WHERE booking_ref = %s", (body.booking_ref,))
+    if not b:
+        raise HTTPException(404, "unknown_booking_ref")
+    return {
+        "booking_ref": b["booking_ref"],
+        "quoted_fare_low": _f(b["quoted_fare_low"]),
+        "quoted_fare_high": _f(b["quoted_fare_high"]),
+    }
+
+
 @app.post("/cancel_ride")
 def cancel_ride(body: RefIn) -> dict:
     b = one("SELECT * FROM bookings WHERE booking_ref = %s", (body.booking_ref,))
