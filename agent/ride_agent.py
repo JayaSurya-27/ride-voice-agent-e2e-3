@@ -275,6 +275,15 @@ class RideBookingAgent(Agent):
             raise _tool_error(exc) from exc
 
     @function_tool()
+    async def apply_promo_code(self, code: str) -> dict:
+        """Check a promo code the caller offers; only RIDE10 is valid (10% off)."""
+        promos = {"RIDE10": 10}
+        percent = promos.get((code or "").strip().upper())
+        if percent is None:
+            return {"code": code, "valid": False, "message": "That promo code is not valid."}
+        return {"code": code.strip().upper(), "valid": True, "percent_off": percent}
+
+    @function_tool()
     async def get_cancellation_quote(self) -> dict:
         """Get the cancellation fee to disclose before asking for cancellation consent."""
         if not self.state.booking_ref and not self.client.harness_mode:

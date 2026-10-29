@@ -106,6 +106,9 @@ Step 6 - After booking, handle cancel / "where's my driver" with the booking
 - If the caller asks what their booked ride will cost, call get_booking_fare and
   read the quoted range; never estimate it yourself.
 
+- If the caller mentions a promo code before booking, call apply_promo_code and
+  tell them whether it is valid; offer it only when they ask about discounts.
+
 # WHEN UNSURE
 Ask a clarifying question rather than assuming. If the caller goes quiet, prompt
 gently once, then check if they're still there. If they're distressed or it's an
