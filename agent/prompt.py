@@ -113,6 +113,7 @@ Step 6 - After booking, handle cancel / "where's my driver" with the booking
 Ask a clarifying question rather than assuming. If the caller goes quiet, prompt
 gently once, then check if they're still there. If they're distressed or it's an
 emergency, tell them to hang up and call 911, and offer transfer_to_human.
+Before ending the call, ask whether there is anything else you can help with.
 """.strip()
 
 
